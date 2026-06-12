@@ -1,0 +1,15 @@
+CREATE DATABASE IF NOT EXISTS esports_db;
+USE esports_db;
+
+CREATE TABLE IF NOT EXISTS equipo (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL UNIQUE,
+    tag VARCHAR(5) NOT NULL UNIQUE,
+    capitan VARCHAR(100) NOT NULL,
+    cantidad_jugadores INT NOT NULL,
+    juego VARCHAR(100) NOT NULL,
+    pais VARCHAR(100) NOT NULL,
+    correo VARCHAR(150) NOT NULL,
+    telefono VARCHAR(9) NOT NULL,
+    estado TINYINT(1) NOT NULL DEFAULT 1
+);
