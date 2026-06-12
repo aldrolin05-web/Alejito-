@@ -13,7 +13,6 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
-    // Errores de validación de campos (@Valid)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Map<String, String>> handleValidation(MethodArgumentNotValidException ex) {
         Map<String, String> errores = new HashMap<>();
@@ -23,22 +22,13 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errores);
     }
 
-    // Errores de negocio (duplicados, no encontrado, etc.)
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<Map<String, String>> handleBusiness(BusinessException ex) {
         String msg = ex.getMessage();
-        HttpStatus status;
-
-        if (msg.contains("no encontrado")) {
-            status = HttpStatus.NOT_FOUND;
-        } else {
-            status = HttpStatus.CONFLICT;
-        }
-
+        HttpStatus status = msg.contains("no encontrado") ? HttpStatus.NOT_FOUND : HttpStatus.CONFLICT;
         return ResponseEntity.status(status).body(Map.of("error", msg));
     }
 
-    // Cualquier otro error inesperado
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, String>> handleGeneral(Exception ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
