@@ -108,17 +108,6 @@ public class EquipoController {
                 throw new BusinessException("El teléfono debe contener exactamente 9 dígitos");
             equipo.setTelefono(tel);
         }
-
         return ResponseEntity.ok(repo.save(equipo));
-    }
-
-    // P4 - Desactivar equipo (eliminación lógica)
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> desactivar(@PathVariable Long id) {
-        Equipo equipo = repo.findById(id)
-                .orElseThrow(() -> new BusinessException("Equipo con id " + id + " no encontrado"));
-        equipo.setEstado(false);
-        repo.save(equipo);
-        return ResponseEntity.ok("Equipo desactivado correctamente");
     }
 }
