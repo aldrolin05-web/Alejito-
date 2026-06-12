@@ -108,7 +108,6 @@ public class EquipoController {
                 throw new BusinessException("El teléfono debe contener exactamente 9 dígitos");
             equipo.setTelefono(tel);
         }
-
         return ResponseEntity.ok(repo.save(equipo));
     }
 
