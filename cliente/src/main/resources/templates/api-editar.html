@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Editar API</title>
+</head>
+<body>
+<h2>Editar API</h2>
+<form method="post" action="/apis/actualizar">
+    <input type="hidden" name="id" th:value="${api['id']}"/>
+    <label>Nombre: <input type="text" name="nombre" th:value="${api['nombre']}" required/></label><br/>
+    <label>Versión: <input type="text" name="version" th:value="${api['version']}" required/></label><br/>
+    <label>Estado:
+        <select name="estado">
+            <option value="Activa" th:selected="${api['estado'] == 'Activa'}">Activa</option>
+            <option value="Deprecada" th:selected="${api['estado'] == 'Deprecada'}">Deprecada</option>
+        </select>
+    </label><br/>
+    <label>Equipo:
+        <select name="equipoId">
+            <option th:each="e : ${equipos}"
+                    th:value="${e['id']}"
+                    th:text="${e['nombre']}"></option>
+        </select>
+    </label><br/>
+    <button type="submit">Actualizar</button>
+    <a href="/apis">Cancelar</a>
+</form>
+</body>
+</html>
