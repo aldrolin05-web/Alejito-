@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Nueva API</title>
+</head>
+<body>
+<h2>Registrar Nueva API</h2>
+<p th:if="${error}" th:text="${error}" style="color:red"></p>
+<form method="post" action="/apis/crear">
+    <label>Nombre: <input type="text" name="nombre" required/></label><br/>
+    <label>Versión: <input type="text" name="version" required/></label><br/>
+    <label>Estado:
+        <select name="estado">
+            <option value="Activa">Activa</option>
+            <option value="Deprecada">Deprecada</option>
+        </select>
+    </label><br/>
+    <label>Equipo:
+        <select name="equipoId">
+            <option th:each="e : ${equipos}"
+                    th:value="${e['id']}"
+                    th:text="${e['nombre']}"></option>
+        </select>
+    </label><br/>
+    <button type="submit">Guardar</button>
+    <a href="/apis">Cancelar</a>
+</form>
+</body>
+</html>
