@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Catálogo de APIs</title>
+</head>
+<body>
+<h2>Catálogo de APIs</h2>
+<p>Rol: <strong th:text="${rol}"></strong> | <a href="/logout">Cerrar sesión</a></p>
+<p th:if="${error}" th:text="${error}" style="color:red"></p>
+
+<a th:if="${rol == 'ADMIN'}" href="/apis/nuevo">+ Nueva API</a>
+
+<table border="1">
+    <tr>
+        <th>ID</th><th>Nombre</th><th>Versión</th><th>Estado</th><th>Fecha Registro</th><th>Acciones</th>
+    </tr>
+    <tr th:each="api : ${apis}">
+        <td th:text="${api['id']}"></td>
+        <td th:text="${api['nombre']}"></td>
+        <td th:text="${api['version']}"></td>
+        <td th:text="${api['estado']}"></td>
+        <td th:text="${api['fecha_registro']}"></td>
+        <td>
+            <a th:if="${rol == 'ADMIN'}" th:href="@{/apis/editar/{id}(id=${api['id']})}">Editar</a>
+            <a th:if="${rol == 'ADMIN'}" th:href="@{/apis/eliminar/{id}(id=${api['id']})}"
+               onclick="return confirm('¿Eliminar?')">Eliminar</a>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
